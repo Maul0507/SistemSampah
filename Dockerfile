@@ -1,6 +1,7 @@
-FROM php:8.2-fpm
+# Ganti ke 8.3 karena openspout minta minimal 8.3
+FROM php:8.3-fpm
 
-# Install system dependencies & library pendukung ekstensi
+# Install system dependencies
 RUN apt-get update && apt-get install -y \
     git \
     curl \
@@ -12,27 +13,23 @@ RUN apt-get update && apt-get install -y \
     zip \
     unzip
 
-# Clear cache apt
+# Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Install PHP extensions (Sekarang sudah termasuk intl dan zip)
+# Install PHP extensions
 RUN docker-php-ext-configure intl \
     && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd intl zip
 
-# Ambil Composer terbaru
+# Get latest Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Set working directory
 WORKDIR /var/www
 
-# Copy semua file project
 COPY . /var/www
 
-# Install dependensi PHP (Laravel)
-# Gunakan --ignore-platform-reqs jika masih ada masalah versi minor
-RUN composer install --no-interaction --optimize-autoloader --no-dev
+# Tambahkan --ignore-platform-reqs agar lebih "kebal" error versi
+RUN composer install --no-interaction --optimize-autoloader --no-dev --ignore-platform-reqs
 
-# Set permissions untuk Laravel
 RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
 
 EXPOSE 9000
