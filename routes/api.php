@@ -67,11 +67,11 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     // PERMINTAAN USER
-    Route::post('/permintaan', [PermintaanController::class, 'store']);
+    Route::post('/permintaan-penjemputan', [PermintaanController::class, 'store']);
     Route::get('/permintaan', [PermintaanController::class, 'riwayatUser']);
 
 
-    Route::post('/penukaran-saldo', [PenukaranSaldoController::class, 'store']);
+    Route::post('/penukaran-saldo', [PenukaranSaldoCSontroller::class, 'store']);
     Route::get('/penukaran-saldo/me', [PenukaranSaldoController::class, 'myHistory']);
 
     Route::get('/penukaran-saldo', [PenukaranSaldoController::class, 'index']);

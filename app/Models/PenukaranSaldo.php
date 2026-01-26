@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class PenukaranSaldo extends Model
 {
-    protected $table = 'withdraw_requests'; // SESUAI DB KAMU
+    protected $table = 'withdraw_requests'; 
 
     protected $fillable = [
         'user_id',

@@ -1,0 +1,52 @@
+version: '3.8'
+services:
+
+  # PHP Service
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: sistem-sampah-app
+    container_name: sampah-app
+    restart: unless-stopped
+    working_dir: /var/www
+    volumes:
+      - .:/var/www
+    networks:
+      - sampah-network
+
+  # Nginx Service
+  webserver:
+    image: nginx:alpine
+    container_name: sampah-webserver
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/var/www
+      - ./nginx/conf.d/:/etc/nginx/conf.d/
+    networks:
+      - sampah-network
+
+  # MySQL Service
+  db:
+    image: mysql:8.0
+    container_name: sampah-db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_USER: ${DB_USERNAME}
+    volumes:
+      - dbdata:/var/lib/mysql
+    networks:
+      - sampah-network
+
+networks:
+  sampah-network:
+    driver: bridge
+
+volumes:
+  dbdata:
+    driver: local
