@@ -48,7 +48,7 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
-            'saldo' => 'decimal:2', // <-- TAMBAHAN: Casting saldo agar formatnya desimal (uang)
+            'saldo' => 'decimal:2', 
         ];
     }
 

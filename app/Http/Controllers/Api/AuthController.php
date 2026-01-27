@@ -11,14 +11,12 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
-    /**
-     * Registrasi user baru
-     */
+    
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'name'     => 'required|string|max:255',
-            'email'    => 'required|string|email|max:255|unique:users',
+            'email'    => 'required|string|email|max:255|unique:nasabah',
             'password' => 'required|string|min:8',
             // 'no_hp'    => 'nullable|string|max:20',
         ]);
@@ -35,9 +33,8 @@ class AuthController extends Controller
             'name'     => $request->name,
             'email'    => $request->email,
             'password' => Hash::make($request->password),
-            'role'     => 'nasabah', // default role nasabah
-            // 'no_hp'    => $request->no_hp,
-            'saldo'    => 0,         // saldo awal 0
+            'role'     => 'nasabah', 
+            'saldo'    => 0,         
         ]);
 
         $token = $user->createToken('auth_token')->plainTextToken;
@@ -52,7 +49,6 @@ class AuthController extends Controller
                 'name'  => $user->name,
                 'email' => $user->email,
                 'role'  => $user->role,
-                // 'no_hp' => $user->no_hp,
                 'saldo' => $user->saldo,              // <-- SALDO DIKIRIM KE FLUTTER
             ]
         ], 201);

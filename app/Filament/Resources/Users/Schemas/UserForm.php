@@ -24,7 +24,7 @@ class UserForm
                     ->password()
                     ->required(),
                 Select::make('role')
-                    ->options(['admin' => 'Admin', 'user' => 'User', 'petugas' => 'Petugas'])
+                    ->options(['admin' => 'Admin', 'nasabah' => 'User', 'petugas' => 'Petugas'])
                     ->default('user')
                     ->required(),
             ]);

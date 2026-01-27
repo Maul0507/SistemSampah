@@ -34,15 +34,15 @@ services:
     container_name: sampah-db
     restart: unless-stopped
     environment:
-      MYSQL_DATABASE: ${DB_DATABASE}
-      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
-      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_DATABASE: sistem_sampah
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_USER: sail
+      MYSQL_PASSWORD: password
     volumes:
       - dbdata:/var/lib/mysql
     networks:
       - sampah-network
-
+      
 networks:
   sampah-network:
     driver: bridge

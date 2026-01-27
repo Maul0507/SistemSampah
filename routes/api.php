@@ -67,7 +67,7 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     // PERMINTAAN USER
-    Route::post('/permintaan-penjemputan', [PermintaanController::class, 'store']);
+    Route::post('/permintaan', [PermintaanController::class, 'store']);
     Route::get('/permintaan', [PermintaanController::class, 'riwayatUser']);
 
 

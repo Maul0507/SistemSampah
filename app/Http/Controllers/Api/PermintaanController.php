@@ -92,28 +92,33 @@ class PermintaanController extends Controller
     /**
      * Riwayat permintaan user
      */
+    /**
+     * Riwayat permintaan user
+     */
     public function riwayatUser()
-    {
-        $userId = Auth::guard('sanctum')->id();
+{
+    try {
+        $user = Auth::user();
 
-        if (!$userId) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Unauthorized'
-            ], 401);
-        }
-
-        $riwayat = PermintaanPenjemputan::where('user_id', $userId)
-            ->with(['detailSampah.informasiSampah', 'user'])
+        $riwayat = PermintaanPenjemputan::where('user_id', $user->id)
+            ->with('detailSampah') // ✅ CUKUP INI
             ->orderBy('created_at', 'desc')
             ->get();
 
         return response()->json([
             'success' => true,
-            'message' => 'Riwayat permintaan berhasil diambil',
-            'data' => $riwayat,
-        ]);
+            'message' => 'Daftar riwayat penjemputan',
+            'data'    => $riwayat
+        ], 200);
+
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Terjadi kesalahan server: ' . $e->getMessage()
+        ], 500);
     }
+}
+
 
     // ==========================================
     // BAGIAN 2: UNTUK PETUGAS (DRIVER)
