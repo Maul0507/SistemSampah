@@ -22,7 +22,7 @@ class PenukaranSaldoResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
-    protected static ?string $recordTitleAttribute = 'Penukaran Saldo';
+    protected static ?string $recordTitleAttribute = 'PenukaranSaldo';
 
     public static function form(Schema $schema): Schema
     {

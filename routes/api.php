@@ -71,14 +71,13 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/permintaan', [PermintaanController::class, 'riwayatUser']);
 
 
-    Route::post('/penukaran-saldo', [PenukaranSaldoCSontroller::class, 'store']);
+    Route::post('/penukaran-saldo', [PenukaranSaldoController::class, 'store']);
     Route::get('/penukaran-saldo/me', [PenukaranSaldoController::class, 'myHistory']);
 
     Route::get('/penukaran-saldo', [PenukaranSaldoController::class, 'index']);
-    
+
     // Hasil URL: PUT /api/admin/penukaran-saldo/{id}
     Route::put('/penukaran-saldo/{id}', [PenukaranSaldoController::class, 'updateStatus']);
-
     // PETUGAS / DRIVER
     Route::get('/permintaan/masuk', [PermintaanController::class, 'tugasMasuk']);
     Route::get('/permintaan/tugas-aktif', [PermintaanController::class, 'tugasAktif']);
